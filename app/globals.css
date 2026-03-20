@@ -1,26 +1,42 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --salmon: #f4a89a;
+  --salmon-deep: #e89282;
+  --ink: #1a1a1a;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes float-dot {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.55;
+  }
+  25% {
+    transform: translate(12px, -18px) scale(1.08);
+    opacity: 0.85;
+  }
+  50% {
+    transform: translate(-10px, 10px) scale(0.92);
+    opacity: 0.65;
+  }
+  75% {
+    transform: translate(8px, 14px) scale(1.04);
+    opacity: 0.75;
   }
 }
 
+.floating-dot {
+  animation-name: float-dot;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
 }
