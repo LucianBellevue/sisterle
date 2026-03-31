@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Fraunces, Geist } from "next/font/google";
+import { Black_Ops_One, Fraunces, Geist } from "next/font/google";
+import { Providers } from "@/components/Providers";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -10,6 +11,12 @@ const geistSans = Geist({
 const fraunces = Fraunces({
   variable: "--font-fraunces",
   subsets: ["latin"],
+});
+
+const handmade = Black_Ops_One({
+  variable: "--font-handmade",
+  subsets: ["latin"],
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -26,9 +33,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${fraunces.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${fraunces.variable} ${handmade.variable} h-full antialiased`}
     >
-      <body className="min-h-full text-[var(--ink)]">{children}</body>
+      <body className="min-h-full text-(--ink)">
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
