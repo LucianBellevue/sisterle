@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { FloatingDots } from "@/components/FloatingDots";
 import { SectionScrollSpy } from "@/components/SectionScrollSpy";
 import { ShelfNav } from "@/components/ShelfNav";
@@ -10,6 +11,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 const DEPOP_URL = "https://www.depop.com/";
 const UIFORGE_URL = "https://uiforge.io/";
 const CONTACT_EMAIL = "hello@sisterle.shop";
+const LOGO_SRC = "/sisterle-logo.png";
 
 export default function Home() {
   return (
@@ -24,12 +26,17 @@ export default function Home() {
               <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-[#3d3d3d]/80">
                 Depop storefront
               </p>
-              <h1
-                className="text-5xl font-medium leading-[0.95] tracking-tight text-[#141414] sm:text-7xl sm:leading-[0.92]"
-                style={{ fontFamily: "var(--font-fraunces), Georgia, serif" }}
-              >
-                Sisterle
-              </h1>
+              <div className="mb-5 inline-block rounded-2xl border border-black/15 bg-black p-3 shadow-[0_12px_32px_-18px_rgba(0,0,0,0.45)]">
+                <Image
+                  src={LOGO_SRC}
+                  alt="Sisterle"
+                  width={280}
+                  height={80}
+                  priority
+                  className="h-auto w-[min(280px,85vw)]"
+                />
+              </div>
+              <h1 className="sr-only">Sisterle</h1>
               <p className="mt-5 max-w-xl text-lg leading-relaxed text-[#2a2a2a]/90 sm:text-xl">
                 Antique pieces, thrifted gems, and pre-loved fashion—curated
                 like a Depop closet you&apos;d actually want to scroll forever.

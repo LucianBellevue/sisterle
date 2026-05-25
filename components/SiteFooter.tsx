@@ -1,8 +1,12 @@
+import Image from "next/image";
+
 type SiteFooterProps = {
   depopUrl: string;
   email: string;
   uiforgeUrl: string;
 };
+
+const LOGO_SRC = "/sisterle-logo.png";
 
 export function SiteFooter({ depopUrl, email, uiforgeUrl }: SiteFooterProps) {
   return (
@@ -15,7 +19,17 @@ export function SiteFooter({ depopUrl, email, uiforgeUrl }: SiteFooterProps) {
         ].join(" ")}
       >
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-5">
+            <div className="inline-block rounded-xl border border-black/15 bg-black p-2">
+              <Image
+                src={LOGO_SRC}
+                alt="Sisterle"
+                width={160}
+                height={46}
+                className="h-auto w-[140px] sm:w-[160px]"
+              />
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
             <a
               href={depopUrl}
               target="_blank"
@@ -41,6 +55,7 @@ export function SiteFooter({ depopUrl, email, uiforgeUrl }: SiteFooterProps) {
             >
               Powered by UiForge
             </a>
+            </div>
           </div>
 
           <p className="text-[#333]/75">
