@@ -54,8 +54,9 @@ export function InfoSection() {
             </p>
             <div className="mt-4 space-y-3 text-sm leading-relaxed text-[#222]/90">
               <p>
-                New drops and restocks go live on Depop first. If you see it,
-                grab it—most items are one-of-one.
+                Shop Sisterle items here for a fast checkout. Pieces also listed
+                on Depop show up in the On Depop section and link out to buy
+                there. Most finds are one-of-one—if you see it, grab it.
               </p>
               <p className="text-[#222]/80">
                 Questions about sizing or bundles? Jump to Contact and we&apos;ll

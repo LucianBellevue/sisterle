@@ -6,14 +6,18 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "tsx --test lib/square/*.test.ts",
+    "setup:square": "tsx --env-file=.env.local scripts/setup-square.ts"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.11.2",
     "next": "16.2.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "react-redux": "^9.2.0"
+    "react-redux": "^9.2.0",
+    "server-only": "^0.0.1",
+    "square": "^45.0.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -23,6 +27,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.0",
     "tailwindcss": "^4",
+    "tsx": "^4.23.1",
     "typescript": "^5"
   }
 }

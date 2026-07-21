@@ -29,8 +29,8 @@ export function ContactSection({ depopUrl, email }: ContactSectionProps) {
         <div className="mt-6 grid gap-6 sm:grid-cols-3">
           <div className="sm:col-span-2">
             <p className="text-sm leading-relaxed text-[#222]/85">
-              For sizing questions, bundles, or quick checks before you buy, reach out.
-              We usually reply fastest on Depop.
+              For sizing questions, bundles, or quick checks before you buy,
+              reach out by email or Depop message.
             </p>
 
             <div className="mt-6 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
@@ -66,10 +66,16 @@ export function ContactSection({ depopUrl, email }: ContactSectionProps) {
                 Info
               </a>
               <a
-                href="#featured"
+                href="#shop"
                 className="rounded-lg px-2 py-1 font-semibold text-[#141414]/85 transition hover:bg-white/70 hover:text-[#141414]"
               >
-                Featured items
+                Shop Sisterle
+              </a>
+              <a
+                href="#depop"
+                className="rounded-lg px-2 py-1 font-semibold text-[#141414]/85 transition hover:bg-white/70 hover:text-[#141414]"
+              >
+                On Depop
               </a>
               <a
                 href={depopUrl}

@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sisterle
 
-## Getting Started
+Curated thrift & vintage storefront. Sisterle items sell on this site through **Square**. Depop listings are mirrored on the site and link out to Depop.
 
-First, run the development server:
+## Stack
+
+- Next.js (App Router) + React + Tailwind
+- Square Catalog, Inventory, and Checkout (Payment Links)
+
+## Setup
+
+1. Copy env defaults:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.example .env.local
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. In [Square Developer Console](https://developer.squareup.com/apps), create an application and copy:
+   - Access token → `SQUARE_ACCESS_TOKEN`
+   - A location ID → `SQUARE_LOCATION_ID`
+   - Set `SQUARE_ENVIRONMENT` to `sandbox` or `production`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Set `NEXT_PUBLIC_SITE_URL` to your public origin (required for Square checkout return redirects).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Create the seller-visible **Depop URL** catalog attribute (one-time):
 
-## Learn More
+```bash
+npx tsx --env-file=.env.local scripts/setup-square.ts
+```
 
-To learn more about Next.js, take a look at the following resources:
+5. Install and run:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm install
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## How to list items (seller workflow)
 
-## Deploy on Vercel
+All listing happens in **Square Dashboard → Item library**. No site admin is required.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Sisterle shop item (sold on this website)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Create an item with name, photos, description, and price.
+2. Turn on **Track stock** and set quantity to `1` for one-of-ones.
+3. Leave **Depop URL** blank.
+4. Save. The item appears under **Shop Sisterle** and can be added to cart.
+
+### Depop-only mirror
+
+1. Create the same kind of item in Square (photos/price help the site card look right).
+2. Set the **Depop URL** custom attribute to the exact Depop product URL.
+3. Save. The item appears under **On Depop** and opens Depop on click (no on-site checkout).
+
+### After a sale
+
+- Successful Square checkouts show in the Square Dashboard and update inventory for tracked items.
+- Stock is confirmed at payment time (not reserved while the hosted checkout is open). If two people somehow pay for the same one-of-one, resolve/refund from the Square Dashboard.
+
+## Scripts
+
+```bash
+npm run dev          # local site
+npm run build        # production build
+npm run lint         # eslint
+npm test             # catalog + checkout unit tests
+npm run setup:square # create Depop URL attribute in Square
+```
+
+## Notes
+
+- Cart is client-side (localStorage). Checkout always re-validates catalog IDs and stock on the server before creating a Square Payment Link.
+- Taxes/shipping should be configured in Square rather than hardcoded in this app.

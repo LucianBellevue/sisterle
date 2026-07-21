@@ -20,9 +20,9 @@ const handmade = Black_Ops_One({
 });
 
 export const metadata: Metadata = {
-  title: "Sisterle — Thrift & vintage on Depop",
+  title: "Sisterle — Thrift & vintage shop",
   description:
-    "Sisterle is a curated storefront for antique, thrifted, and one-of-a-kind finds. Shop with us on Depop.",
+    "Sisterle is a curated storefront for antique, thrifted, and one-of-a-kind finds. Shop on sisterle.shop or browse our Depop listings.",
 };
 
 export default function RootLayout({

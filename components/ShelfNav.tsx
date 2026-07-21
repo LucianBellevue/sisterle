@@ -2,6 +2,7 @@
 
 import { useAppSelector } from "@/store/hooks";
 import type { SectionId } from "@/store/uiSlice";
+import { useCart } from "@/components/cart/CartProvider";
 
 type ShelfNavProps = {
   depopUrl: string;
@@ -10,6 +11,7 @@ type ShelfNavProps = {
 export function ShelfNav({ depopUrl }: ShelfNavProps) {
   const active = useAppSelector((s) => s.ui.activeSection);
   const isActive = (id: SectionId) => active === id;
+  const { itemCount, openCart } = useCart();
 
   return (
     <div className="sticky top-4 z-20">
@@ -28,7 +30,8 @@ export function ShelfNav({ depopUrl }: ShelfNavProps) {
             {[
               { id: "info", label: "Info" },
               { id: "about", label: "About" },
-              { id: "featured", label: "Featured" },
+              { id: "shop", label: "Shop" },
+              { id: "depop", label: "Depop" },
               { id: "contact", label: "Contact" },
             ].map((link) => (
               <a
@@ -41,24 +44,35 @@ export function ShelfNav({ depopUrl }: ShelfNavProps) {
                     ? "border-black/35 bg-white/95 shadow-[0_8px_18px_-14px_rgba(0,0,0,0.55)]"
                     : "border-black/15 bg-white/65 hover:bg-white/85",
                 ].join(" ")}
-                style={{ fontFamily: "var(--font-handmade), var(--font-fraunces), serif" }}
+                style={{
+                  fontFamily:
+                    "var(--font-handmade), var(--font-fraunces), serif",
+                }}
               >
                 {link.label}
               </a>
             ))}
           </div>
 
-          <a
-            href={depopUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex h-10 items-center justify-center rounded-xl bg-[#141414] px-4 text-sm font-semibold text-(--salmon) transition hover:bg-black"
-          >
-            Shop on Depop
-          </a>
+          <div className="flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={openCart}
+              className="inline-flex h-10 items-center justify-center rounded-xl border border-black/15 bg-white/75 px-4 text-sm font-semibold text-[#141414] transition hover:bg-white"
+            >
+              Cart{itemCount > 0 ? ` (${itemCount})` : ""}
+            </button>
+            <a
+              href={depopUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-10 items-center justify-center rounded-xl bg-[#141414] px-4 text-sm font-semibold text-(--salmon) transition hover:bg-black"
+            >
+              Depop shop
+            </a>
+          </div>
         </nav>
       </div>
     </div>
   );
 }
-

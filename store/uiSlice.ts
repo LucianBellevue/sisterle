@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-export type SectionId = "info" | "about" | "featured" | "contact";
+export type SectionId = "info" | "about" | "shop" | "depop" | "contact";
 export type ScrapVariant = 1 | 2 | 3;
 
 type UiState = {
@@ -13,8 +13,9 @@ const initialState: UiState = {
   sectionVariants: {
     info: 1,
     about: 2,
-    featured: 3,
-    contact: 1,
+    shop: 3,
+    depop: 1,
+    contact: 2,
   },
 };
 
@@ -28,11 +29,11 @@ const uiSlice = createSlice({
     cycleSectionVariant(state, action: PayloadAction<SectionId>) {
       const key = action.payload;
       const current = state.sectionVariants[key];
-      state.sectionVariants[key] = current === 3 ? 1 : ((current + 1) as ScrapVariant);
+      state.sectionVariants[key] =
+        current === 3 ? 1 : ((current + 1) as ScrapVariant);
     },
   },
 });
 
 export const { setActiveSection, cycleSectionVariant } = uiSlice.actions;
 export default uiSlice.reducer;
-
