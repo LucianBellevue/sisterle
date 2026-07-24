@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import { Black_Ops_One, Fraunces, Geist } from "next/font/google";
 import { Providers } from "@/components/Providers";
+import { Analytics } from "@/components/Analytics";
+import {
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_TAGLINE,
+  getPublicSiteUrl,
+} from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -19,10 +26,67 @@ const handmade = Black_Ops_One({
   weight: "400",
 });
 
+const siteUrl = getPublicSiteUrl();
+
 export const metadata: Metadata = {
-  title: "Sisterle — Thrift & vintage shop",
-  description:
-    "Sisterle is a curated storefront for antique, thrifted, and one-of-a-kind finds. Shop on sisterle.shop or browse our Depop listings.",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    template: `%s · ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  keywords: [
+    "Sisterle",
+    "thrift shop",
+    "vintage clothing",
+    "pre-loved fashion",
+    "one of one",
+    "antique thrift",
+    "Depop",
+  ],
+  authors: [{ name: SITE_NAME }],
+  creator: SITE_NAME,
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: siteUrl,
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    description: SITE_DESCRIPTION,
+    images: [
+      {
+        url: "/og-default.jpg",
+        width: 1200,
+        height: 630,
+        alt: `${SITE_NAME} — thrift and vintage shop`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    description: SITE_DESCRIPTION,
+    images: ["/og-default.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  icons: {
+    icon: "/sisterle-logo.png",
+    apple: "/sisterle-logo.png",
+  },
 };
 
 export default function RootLayout({
@@ -37,6 +101,7 @@ export default function RootLayout({
     >
       <body className="min-h-full text-(--ink)">
         <Providers>{children}</Providers>
+        <Analytics />
       </body>
     </html>
   );

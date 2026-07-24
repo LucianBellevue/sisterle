@@ -2,10 +2,13 @@
 
 Curated thrift & vintage storefront. Sisterle items sell on this site through **Square**. Depop listings are mirrored on the site and link out to Depop.
 
+**Go live:** see [GO_LIVE.md](GO_LIVE.md) for Square, DNS, Vercel, secrets, smoke test, and Search Console.
+
 ## Stack
 
 - Next.js (App Router) + React + Tailwind
 - Square Catalog, Inventory, and Checkout (Payment Links)
+- SEO: sitemap, robots, Open Graph, product pages, JSON-LD
 
 ## Setup
 
@@ -20,15 +23,17 @@ cp .env.example .env.local
    - A location ID → `SQUARE_LOCATION_ID`
    - Set `SQUARE_ENVIRONMENT` to `sandbox` or `production`
 
-3. Set `NEXT_PUBLIC_SITE_URL` to your public origin (required for Square checkout return redirects).
+3. Set `NEXT_PUBLIC_SITE_URL` to your public origin (required for Square checkout return redirects and SEO canonicals).
 
-4. Create the seller-visible **Depop URL** catalog attribute (one-time):
+4. Set `NEXT_PUBLIC_DEPOP_URL` to your **exact Depop shop/profile URL**.
+
+5. Create the seller-visible **Depop URL** catalog attribute (one-time):
 
 ```bash
-npx tsx --env-file=.env.local scripts/setup-square.ts
+npm run setup:square
 ```
 
-5. Install and run:
+6. Install and run:
 
 ```bash
 npm install
@@ -44,13 +49,13 @@ All listing happens in **Square Dashboard → Item library**. No site admin is r
 1. Create an item with name, photos, description, and price.
 2. Turn on **Track stock** and set quantity to `1` for one-of-ones.
 3. Leave **Depop URL** blank.
-4. Save. The item appears under **Shop Sisterle** and can be added to cart.
+4. Save. The item appears under **Shop Sisterle** and at `/shop/{itemId}`.
 
 ### Depop-only mirror
 
 1. Create the same kind of item in Square (photos/price help the site card look right).
 2. Set the **Depop URL** custom attribute to the exact Depop product URL.
-3. Save. The item appears under **On Depop** and opens Depop on click (no on-site checkout).
+3. Save. The item appears under **On Depop** and `/shop/{itemId}` with a Depop checkout CTA.
 
 ### After a sale
 
@@ -66,6 +71,12 @@ npm run lint         # eslint
 npm test             # catalog + checkout unit tests
 npm run setup:square # create Depop URL attribute in Square
 ```
+
+## SEO endpoints
+
+- `https://your-domain/robots.txt`
+- `https://your-domain/sitemap.xml`
+- Product pages: `/shop/[itemId]`
 
 ## Notes
 

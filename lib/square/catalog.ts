@@ -221,3 +221,58 @@ export async function getProductsByVariationIds(
 
   return result;
 }
+
+export async function getProductByItemId(
+  itemId: string,
+): Promise<StorefrontProduct | null> {
+  if (!isSquareConfigured() || !itemId.trim()) return null;
+
+  try {
+    const client = getSquareClient();
+    const locationId = getSquareLocationId();
+    const response = await client.catalog.object.get({
+      objectId: itemId,
+      includeRelatedObjects: true,
+    });
+
+    const object = response.object;
+    if (!object || object.type !== "ITEM") return null;
+
+    const imageUrlById = new Map<string, string>();
+    for (const related of response.relatedObjects ?? []) {
+      if (related.type === "IMAGE" && related.imageData?.url) {
+        imageUrlById.set(related.id, related.imageData.url);
+      }
+    }
+
+    // Also resolve image IDs that weren't in relatedObjects
+    const missingImageIds = (object.itemData?.imageIds ?? []).filter(
+      (id) => !imageUrlById.has(id),
+    );
+    if (missingImageIds.length > 0) {
+      const images = await client.catalog.batchGet({
+        objectIds: missingImageIds,
+      });
+      for (const img of images.objects ?? []) {
+        if (img.type === "IMAGE" && img.imageData?.url) {
+          imageUrlById.set(img.id, img.imageData.url);
+        }
+      }
+    }
+
+    const variation = pickPrimaryVariation(object);
+    const quantities = variation?.id
+      ? await getInventoryQuantities([variation.id], locationId)
+      : new Map<string, number>();
+
+    return normalizeCatalogItem({
+      item: object,
+      imageUrlById,
+      quantityByVariationId: quantities,
+      locationId,
+    });
+  } catch (error) {
+    console.error("[square/getProductByItemId]", error);
+    return null;
+  }
+}

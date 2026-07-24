@@ -4,11 +4,17 @@ type SiteFooterProps = {
   depopUrl: string;
   email: string;
   uiforgeUrl: string;
+  instagramUrl?: string | null;
 };
 
 const LOGO_SRC = "/sisterle-logo.png";
 
-export function SiteFooter({ depopUrl, email, uiforgeUrl }: SiteFooterProps) {
+export function SiteFooter({
+  depopUrl,
+  email,
+  uiforgeUrl,
+  instagramUrl,
+}: SiteFooterProps) {
   return (
     <footer className="mt-14 border-t border-black/10 pt-8 text-sm text-[#333]/85">
       <div
@@ -23,38 +29,61 @@ export function SiteFooter({ depopUrl, email, uiforgeUrl }: SiteFooterProps) {
             <div className="inline-block rounded-xl border border-black/15 bg-black p-2">
               <Image
                 src={LOGO_SRC}
-                alt="Sisterle"
+                alt="Sisterle logo"
                 width={160}
                 height={46}
                 className="h-auto w-[140px] sm:w-[160px]"
               />
             </div>
             <div className="flex flex-wrap items-center gap-3">
-            <a
-              href={depopUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-lg px-2 py-1 font-bold tracking-wide text-[#141414]/85 transition hover:bg-white/40 hover:text-[#141414]"
-              style={{ fontFamily: "var(--font-handmade), var(--font-fraunces), serif" }}
-            >
-              Depop
-            </a>
-            <a
-              href={`mailto:${email}`}
-              className="rounded-lg px-2 py-1 font-bold tracking-wide text-[#141414]/85 transition hover:bg-white/40 hover:text-[#141414]"
-              style={{ fontFamily: "var(--font-handmade), var(--font-fraunces), serif" }}
-            >
-              Email
-            </a>
-            <a
-              href={uiforgeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-lg px-2 py-1 font-bold tracking-wide text-[#141414]/85 transition hover:bg-white/40 hover:text-[#141414]"
-              style={{ fontFamily: "var(--font-handmade), var(--font-fraunces), serif" }}
-            >
-              Powered by UiForge
-            </a>
+              <a
+                href={depopUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-lg px-2 py-1 font-bold tracking-wide text-[#141414]/85 transition hover:bg-white/40 hover:text-[#141414]"
+                style={{
+                  fontFamily:
+                    "var(--font-handmade), var(--font-fraunces), serif",
+                }}
+              >
+                Depop
+              </a>
+              {instagramUrl ? (
+                <a
+                  href={instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-lg px-2 py-1 font-bold tracking-wide text-[#141414]/85 transition hover:bg-white/40 hover:text-[#141414]"
+                  style={{
+                    fontFamily:
+                      "var(--font-handmade), var(--font-fraunces), serif",
+                  }}
+                >
+                  Instagram
+                </a>
+              ) : null}
+              <a
+                href={`mailto:${email}`}
+                className="rounded-lg px-2 py-1 font-bold tracking-wide text-[#141414]/85 transition hover:bg-white/40 hover:text-[#141414]"
+                style={{
+                  fontFamily:
+                    "var(--font-handmade), var(--font-fraunces), serif",
+                }}
+              >
+                Email
+              </a>
+              <a
+                href={uiforgeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-lg px-2 py-1 font-bold tracking-wide text-[#141414]/85 transition hover:bg-white/40 hover:text-[#141414]"
+                style={{
+                  fontFamily:
+                    "var(--font-handmade), var(--font-fraunces), serif",
+                }}
+              >
+                Powered by UiForge
+              </a>
             </div>
           </div>
 
@@ -66,4 +95,3 @@ export function SiteFooter({ depopUrl, email, uiforgeUrl }: SiteFooterProps) {
     </footer>
   );
 }
-

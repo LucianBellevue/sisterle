@@ -32,15 +32,24 @@ export function InfoSection() {
             <ul className="mt-4 space-y-3 text-sm leading-relaxed text-[#222]/90">
               <li className="flex gap-3">
                 <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-black/85" />
-                <span>Vintage + thrift clothing and accessories with character.</span>
+                <span>
+                  Vintage and thrift clothing, accessories, and soft antiques
+                  with character.
+                </span>
               </li>
               <li className="flex gap-3">
                 <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-black/85" />
-                <span>Small home &amp; decor pieces that photograph beautifully.</span>
+                <span>
+                  Small home and decor pieces curated for texture, shape, and
+                  photo-friendly details.
+                </span>
               </li>
               <li className="flex gap-3">
                 <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-black/85" />
-                <span>Honest listings: condition, measurements, and details.</span>
+                <span>
+                  Honest one-of-one listings with condition notes, measurements,
+                  and clear photos.
+                </span>
               </li>
             </ul>
           </div>
@@ -54,13 +63,13 @@ export function InfoSection() {
             </p>
             <div className="mt-4 space-y-3 text-sm leading-relaxed text-[#222]/90">
               <p>
-                Shop Sisterle items here for a fast checkout. Pieces also listed
-                on Depop show up in the On Depop section and link out to buy
-                there. Most finds are one-of-one—if you see it, grab it.
+                Buy Sisterle shop items here with secure Square checkout. Pieces
+                we also sell on Depop appear under On Depop and open the live
+                Depop listing. Most finds are one-of-one—if you love it, grab it.
               </p>
               <p className="text-[#222]/80">
-                Questions about sizing or bundles? Jump to Contact and we&apos;ll
-                get back to you.
+                Questions about sizing, shipping, or bundles? Jump to Contact
+                and we&apos;ll help before you buy.
               </p>
             </div>
           </div>

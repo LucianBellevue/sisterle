@@ -25,14 +25,13 @@ export function AboutSection() {
         <div className="mt-6 grid gap-6 sm:grid-cols-3">
           <div className="sm:col-span-2">
             <p className="text-lg leading-relaxed text-current/90">
-              Sisterle is a curated closet of thrifted and vintage finds with a
-              soft spot for texture, shape, and that “wait… where did you find
-              that?” energy.
+              Sisterle is a curated thrift and vintage shop with a soft spot for
+              texture, shape, and that “wait… where did you find that?” energy.
             </p>
             <p className="mt-4 text-sm leading-relaxed text-current/80">
-              Everything is selected to feel wearable, photographable, and worth
-              keeping—no filler. Expect small runs, quick sell-outs, and pieces
-              that become your new favorite.
+              We select pre-loved fashion and small antiques that feel wearable,
+              photographable, and worth keeping—no filler. Expect one-of-one
+              drops, quick sell-outs, and pieces that become your new favorite.
             </p>
           </div>
 
