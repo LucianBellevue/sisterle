@@ -46,18 +46,15 @@ export function HeroBento({ products }: HeroBentoProps) {
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#141414]/70">
             {SITE_TAGLINE} ✨
           </p>
-          <div className="mb-4 inline-block rounded-2xl border border-black/15 bg-black p-2.5">
+          <h1 className="mb-4 inline-block rounded-2xl border border-black/15 bg-black p-2.5">
             <Image
               src={LOGO_SRC}
-              alt={`${SITE_NAME} logo`}
+              alt={SITE_NAME}
               width={220}
               height={64}
               priority
               className="h-auto w-[min(200px,70vw)]"
             />
-          </div>
-          <h1 className="bento-title text-4xl text-[#141414] sm:text-5xl">
-            {SITE_NAME}
           </h1>
           <p className="mt-4 max-w-md text-sm leading-relaxed text-[#222]/90 sm:text-base">
             {UI_COPY.hero.support}
