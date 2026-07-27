@@ -1,4 +1,4 @@
- "use client";
+"use client";
 
 import { useEffect, useMemo, useRef } from "react";
 
@@ -34,7 +34,11 @@ function dotProps(i: number) {
   const centerJitterX = (noise01(d + 10) - 0.5) * 6; // % (same for all 4 vertices)
   const centerJitterY = (noise01(d + 20) - 0.5) * 6; // %
 
-  const cx = margin + col * centerStepX + (row % 2 === 1 ? centerStepX / 2 : 0) + centerJitterX;
+  const cx =
+    margin +
+    col * centerStepX +
+    (row % 2 === 1 ? centerStepX / 2 : 0) +
+    centerJitterX;
   const cy = margin + row * centerStepY + centerJitterY;
 
   const diamondW = 12; // % width between left/right vertices
@@ -59,7 +63,9 @@ function dotProps(i: number) {
   const size = 4;
   // Small per-dot parallax depth (all still move together directionally).
   const depth = 0.35 + noise01(i + 777) * 0.65; // 0.35..1.0
-  return { top, left, size, depth };
+  const durationSec = 6.5 + noise01(i + 333) * 5.5; // 6.5..12s
+  const delaySec = -(noise01(i + 555) * durationSec); // negative = already mid-cycle
+  return { top, left, size, depth, durationSec, delaySec };
 }
 
 export function FloatingDots() {
@@ -69,7 +75,10 @@ export function FloatingDots() {
   const currentRef = useRef({ x: 0, y: 0 }); // eased -1..1
 
   useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+
     const onMove = (e: MouseEvent) => {
+      if (reduced.matches) return;
       const nx = (e.clientX / window.innerWidth) * 2 - 1;
       const ny = (e.clientY / window.innerHeight) * 2 - 1;
       targetRef.current.x = clamp(nx, -1, 1);
@@ -81,20 +90,26 @@ export function FloatingDots() {
   }, []);
 
   useEffect(() => {
-    const step = () => {
-      const ease = 0.08; // subtle smoothing
-      currentRef.current.x += (targetRef.current.x - currentRef.current.x) * ease;
-      currentRef.current.y += (targetRef.current.y - currentRef.current.y) * ease;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-      const maxPx = parallaxStrengthPx;
-      document.documentElement.style.setProperty(
-        "--dots-parallax-x",
-        `${currentRef.current.x * maxPx}px`,
-      );
-      document.documentElement.style.setProperty(
-        "--dots-parallax-y",
-        `${currentRef.current.y * maxPx}px`,
-      );
+    const step = () => {
+      if (!reduced.matches) {
+        const ease = 0.08;
+        currentRef.current.x +=
+          (targetRef.current.x - currentRef.current.x) * ease;
+        currentRef.current.y +=
+          (targetRef.current.y - currentRef.current.y) * ease;
+
+        const maxPx = parallaxStrengthPx;
+        document.documentElement.style.setProperty(
+          "--dots-parallax-x",
+          `${currentRef.current.x * maxPx}px`,
+        );
+        document.documentElement.style.setProperty(
+          "--dots-parallax-y",
+          `${currentRef.current.y * maxPx}px`,
+        );
+      }
 
       rafRef.current = window.requestAnimationFrame(step);
     };
@@ -111,10 +126,10 @@ export function FloatingDots() {
 
   return (
     <div
-      className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
+      className="pointer-events-none fixed inset-0 z-[1] overflow-hidden"
       aria-hidden
     >
-      {dots.map(({ i, top, left, size, depth }) => {
+      {dots.map(({ i, top, left, size, depth, durationSec, delaySec }) => {
         const topPct = `${top.toFixed(4)}%`;
         const leftPct = `${left.toFixed(4)}%`;
         const sizePx = `${size}px`;
@@ -123,7 +138,7 @@ export function FloatingDots() {
         return (
           <span
             key={i}
-            className="floating-dot absolute rounded-full bg-[#0a0a0a]"
+            className="absolute"
             style={{
               top: topPct,
               left: leftPct,
@@ -131,7 +146,15 @@ export function FloatingDots() {
               height: sizePx,
               transform: `translate3d(calc(var(--dots-parallax-x, 0px) * ${depthFixed}), calc(var(--dots-parallax-y, 0px) * ${depthFixed}), 0)`,
             }}
-          />
+          >
+            <span
+              className="floating-dot block h-full w-full rounded-full bg-[#0a0a0a]"
+              style={{
+                animationDuration: `${durationSec.toFixed(2)}s`,
+                animationDelay: `${delaySec.toFixed(2)}s`,
+              }}
+            />
+          </span>
         );
       })}
     </div>

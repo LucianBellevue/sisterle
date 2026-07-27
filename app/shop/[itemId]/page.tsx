@@ -67,11 +67,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const isDepop = product.channel === "depop";
 
   return (
-    <div className="acid-wash-bg relative min-h-screen overflow-x-hidden">
+    <div className="relative min-h-screen overflow-x-hidden">
       <JsonLd data={buildProductSchema(product)} />
       <JsonLd data={buildBreadcrumbSchema(product)} />
 
-      <div className="relative z-10 mx-auto max-w-3xl px-6 py-14 sm:px-10 sm:py-20">
+      <div className="relative z-10 mx-auto max-w-3xl px-4 py-4 sm:px-10 sm:py-20">
         <nav aria-label="Breadcrumb" className="mb-8 text-sm text-[#333]/85">
           <ol className="flex flex-wrap items-center gap-2">
             <li>
@@ -97,15 +97,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <ProductHeroImage product={product} />
 
           <div className="rounded-2xl border border-black/15 bg-white/70 p-6 shadow-[0_22px_55px_-24px_rgba(0,0,0,0.35)] backdrop-blur-sm sm:p-8">
-            <p
-              className="text-xs font-extrabold uppercase tracking-[0.22em] text-[#1a1a1a]/65"
-              style={{
-                fontFamily: "var(--font-handmade), var(--font-fraunces), serif",
-              }}
-            >
-              {isDepop ? "Listed on Depop" : "Sisterle shop"}
+            <p className="font-hand text-lg font-semibold text-[#1a1a1a]/75">
+              {isDepop ? "Listed on Depop 👗" : "Sisterle shop ✨"}
             </p>
-            <h1 className="mt-3 text-3xl font-semibold leading-tight text-[#141414]">
+            <h1 className="font-hand mt-3 text-3xl font-semibold leading-tight text-[#141414] sm:text-4xl">
               {product.name}
             </h1>
             <p className="mt-4 text-xl font-semibold text-[#141414]">

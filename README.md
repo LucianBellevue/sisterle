@@ -77,6 +77,7 @@ npm run setup:square # create Depop URL attribute in Square
 - `https://your-domain/robots.txt`
 - `https://your-domain/sitemap.xml`
 - Product pages: `/shop/[itemId]`
+- Trust pages: `/privacy`, `/terms`, `/shipping`, `/returns`, `/contact`
 
 ## Notes
 

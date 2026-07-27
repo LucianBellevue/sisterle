@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/components/cart/CartProvider";
+import { UI_COPY } from "@/lib/copy/ui";
 import { formatMoney } from "@/lib/square/money";
 import type { StorefrontProduct } from "@/lib/square/types";
 
@@ -23,7 +24,7 @@ export function ProductPurchaseActions({ product }: ProductPurchaseActionsProps)
         rel="noopener noreferrer"
         className="inline-flex h-12 w-full items-center justify-center rounded-full bg-[#141414] px-7 text-sm font-semibold text-(--salmon) transition hover:bg-black sm:w-auto"
       >
-        Buy on Depop
+        Buy on Depop 💬
       </a>
     );
   }
@@ -39,7 +40,9 @@ export function ProductPurchaseActions({ product }: ProductPurchaseActionsProps)
         disabled={inCart}
         className="inline-flex h-12 w-full items-center justify-center rounded-full bg-[#141414] px-7 text-sm font-semibold text-(--salmon) transition hover:bg-black disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
       >
-        {inCart ? "In cart" : `Add to cart · ${formatMoney(product.priceCents, product.currency)}`}
+        {inCart
+          ? UI_COPY.ctas.inCart
+          : `${UI_COPY.ctas.addToCart} · ${formatMoney(product.priceCents, product.currency)}`}
       </button>
     );
   }
@@ -57,7 +60,7 @@ export function ProductPurchaseActions({ product }: ProductPurchaseActionsProps)
         href="/#shop"
         className="text-sm font-semibold text-[#141414] underline underline-offset-2"
       >
-        Browse other finds
+        Browse other finds ✨
       </Link>
     </div>
   );

@@ -1,4 +1,7 @@
 import Image from "next/image";
+import Link from "next/link";
+import { BentoPanel } from "@/components/bento/BentoPanel";
+import { LEGAL_ROUTES } from "@/lib/legal/policies";
 
 type SiteFooterProps = {
   depopUrl: string;
@@ -16,82 +19,74 @@ export function SiteFooter({
   instagramUrl,
 }: SiteFooterProps) {
   return (
-    <footer className="mt-14 border-t border-black/10 pt-8 text-sm text-[#333]/85">
-      <div
-        className={[
-          "relative rounded-2xl border border-black/10 bg-white/35 px-4 py-4 shadow-[0_14px_40px_-28px_rgba(0,0,0,0.35)] backdrop-blur-md sm:px-5",
-          "after:pointer-events-none after:absolute after:inset-[-8px] after:rounded-[22px] after:opacity-[0.45] after:content-['']",
-          "after:bg-[radial-gradient(22px_16px_at_18%_20%,rgba(0,0,0,0.08),transparent_60%),radial-gradient(22px_16px_at_82%_24%,rgba(0,0,0,0.07),transparent_60%),radial-gradient(26px_18px_at_50%_88%,rgba(0,0,0,0.06),transparent_62%)]",
-        ].join(" ")}
-      >
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-5">
-            <div className="inline-block rounded-xl border border-black/15 bg-black p-2">
-              <Image
-                src={LOGO_SRC}
-                alt="Sisterle logo"
-                width={160}
-                height={46}
-                className="h-auto w-[140px] sm:w-[160px]"
-              />
-            </div>
-            <div className="flex flex-wrap items-center gap-3">
-              <a
-                href={depopUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-lg px-2 py-1 font-bold tracking-wide text-[#141414]/85 transition hover:bg-white/40 hover:text-[#141414]"
-                style={{
-                  fontFamily:
-                    "var(--font-handmade), var(--font-fraunces), serif",
-                }}
-              >
-                Depop
-              </a>
-              {instagramUrl ? (
+    <footer className="mt-10 sm:mt-14">
+      <BentoPanel tone="cream" className="p-5 sm:p-6">
+        <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-5">
+              <div className="inline-block rounded-xl border border-black/15 bg-black p-2">
+                <Image
+                  src={LOGO_SRC}
+                  alt="Sisterle logo"
+                  width={160}
+                  height={46}
+                  className="h-auto w-[140px] sm:w-[160px]"
+                />
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
                 <a
-                  href={instagramUrl}
+                  href={depopUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-lg px-2 py-1 font-bold tracking-wide text-[#141414]/85 transition hover:bg-white/40 hover:text-[#141414]"
-                  style={{
-                    fontFamily:
-                      "var(--font-handmade), var(--font-fraunces), serif",
-                  }}
+                  className="bento-title rounded-full bg-[var(--panel-pink)] px-3 py-1.5 text-sm"
                 >
-                  Instagram
+                  Depop 👗
                 </a>
-              ) : null}
-              <a
-                href={`mailto:${email}`}
-                className="rounded-lg px-2 py-1 font-bold tracking-wide text-[#141414]/85 transition hover:bg-white/40 hover:text-[#141414]"
-                style={{
-                  fontFamily:
-                    "var(--font-handmade), var(--font-fraunces), serif",
-                }}
-              >
-                Email
-              </a>
-              <a
-                href={uiforgeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-lg px-2 py-1 font-bold tracking-wide text-[#141414]/85 transition hover:bg-white/40 hover:text-[#141414]"
-                style={{
-                  fontFamily:
-                    "var(--font-handmade), var(--font-fraunces), serif",
-                }}
-              >
-                Powered by UiForge
-              </a>
+                {instagramUrl ? (
+                  <a
+                    href={instagramUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bento-title rounded-full bg-[var(--panel-blue)] px-3 py-1.5 text-sm"
+                  >
+                    Instagram 📸
+                  </a>
+                ) : null}
+                <a
+                  href={`mailto:${email}`}
+                  className="bento-title rounded-full bg-[var(--panel-yellow)] px-3 py-1.5 text-sm"
+                >
+                  Email ✉️
+                </a>
+                <a
+                  href={uiforgeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bento-title rounded-full bg-white/80 px-3 py-1.5 text-sm"
+                >
+                  Powered by UiForge
+                </a>
+              </div>
             </div>
+
+            <p className="text-sm text-[#333]/75">
+              © {new Date().getFullYear()} Sisterle. All rights reserved.
+            </p>
           </div>
 
-          <p className="text-[#333]/75">
-            © {new Date().getFullYear()} Sisterle. All rights reserved.
-          </p>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 border-t border-black/10 pt-4 text-xs sm:text-sm">
+            {LEGAL_ROUTES.map((route) => (
+              <Link
+                key={route.href}
+                href={route.href}
+                className="font-semibold text-[#141414]/80 underline-offset-2 hover:text-[#141414] hover:underline"
+              >
+                {route.label}
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
+      </BentoPanel>
     </footer>
   );
 }

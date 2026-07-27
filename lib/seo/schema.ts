@@ -20,6 +20,13 @@ export function buildOrganizationSchema() {
     description: SITE_DESCRIPTION,
     logo: `${siteUrl}/sisterle-logo.png`,
     image: `${siteUrl}/og-default.jpg`,
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "customer service",
+      email: CONTACT_EMAIL,
+      url: `${siteUrl}/contact`,
+      availableLanguage: "English",
+    },
     ...(sameAs.length > 0 ? { sameAs } : {}),
   };
 }

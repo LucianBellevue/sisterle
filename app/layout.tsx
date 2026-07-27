@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { Black_Ops_One, Fraunces, Geist } from "next/font/google";
+import { Fraunces, Geist, Shantell_Sans } from "next/font/google";
 import { Providers } from "@/components/Providers";
-import { Analytics } from "@/components/Analytics";
+import { AnalyticsGate } from "@/components/AnalyticsGate";
+import { CookieConsent } from "@/components/CookieConsent";
 import {
   SITE_DESCRIPTION,
   SITE_NAME,
@@ -20,10 +21,10 @@ const fraunces = Fraunces({
   subsets: ["latin"],
 });
 
-const handmade = Black_Ops_One({
+const handmade = Shantell_Sans({
   variable: "--font-handmade",
   subsets: ["latin"],
-  weight: "400",
+  weight: ["400", "500", "600", "700"],
 });
 
 const siteUrl = getPublicSiteUrl();
@@ -89,6 +90,13 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#f3a8bf",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -101,7 +109,8 @@ export default function RootLayout({
     >
       <body className="min-h-full text-(--ink)">
         <Providers>{children}</Providers>
-        <Analytics />
+        <AnalyticsGate />
+        <CookieConsent />
       </body>
     </html>
   );

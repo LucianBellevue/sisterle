@@ -1,8 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { useCart } from "@/components/cart/CartProvider";
+import { UI_COPY } from "@/lib/copy/ui";
 import { formatMoney } from "@/lib/square/money";
 
 export function CartDrawer() {
@@ -54,7 +56,7 @@ export function CartDrawer() {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50">
+    <div className="fixed inset-0 z-[60] md:z-50">
       <button
         type="button"
         aria-label="Close cart"
@@ -62,21 +64,15 @@ export function CartDrawer() {
         onClick={closeCart}
       />
       <aside
-        className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col border-l border-black/15 bg-[#fff8fa] shadow-[-18px_0_50px_-28px_rgba(0,0,0,0.45)]"
+        className="absolute inset-y-0 right-0 flex h-full w-full max-w-md flex-col border-l border-black/15 bg-[#fff8fa] shadow-[-18px_0_50px_-28px_rgba(0,0,0,0.45)] mobile-safe-top mobile-safe-bottom"
         role="dialog"
         aria-modal="true"
         aria-label="Shopping cart"
       >
         <div className="flex items-center justify-between border-b border-black/10 px-5 py-4">
           <div>
-            <p
-              className="text-xs font-extrabold uppercase tracking-[0.22em] text-[#1a1a1a]/70"
-              style={{
-                fontFamily:
-                  "var(--font-handmade), var(--font-fraunces), serif",
-              }}
-            >
-              Cart
+            <p className="font-hand text-xl font-semibold text-[#1a1a1a]/85">
+              {UI_COPY.labels.cart}
             </p>
             <p className="mt-1 text-sm text-[#333]">
               {itemCount} {itemCount === 1 ? "item" : "items"}
@@ -95,7 +91,7 @@ export function CartDrawer() {
           {items.length === 0 ? (
             <p className="text-sm leading-relaxed text-[#333]/85">
               Your cart is empty. Add a Sisterle piece from the shop to check
-              out here.
+              out here. ✨
             </p>
           ) : (
             <ul className="space-y-4">
@@ -150,7 +146,15 @@ export function CartDrawer() {
           </div>
           <p className="mb-3 text-xs leading-relaxed text-[#444]/80">
             Shipping and tax are calculated at Square checkout. Stock is
-            confirmed when you pay.
+            confirmed when you pay. By checking out you agree to our{" "}
+            <Link href="/terms" className="font-semibold underline underline-offset-2">
+              Terms
+            </Link>{" "}
+            and{" "}
+            <Link href="/returns" className="font-semibold underline underline-offset-2">
+              Returns
+            </Link>{" "}
+            policies.
           </p>
           {error ? (
             <p className="mb-3 rounded-xl border border-red-300/70 bg-red-50 px-3 py-2 text-sm text-red-800">
@@ -163,7 +167,7 @@ export function CartDrawer() {
             onClick={handleCheckout}
             className="inline-flex h-12 w-full items-center justify-center rounded-full bg-[#141414] px-6 text-sm font-semibold text-(--salmon) transition hover:bg-black disabled:cursor-not-allowed disabled:opacity-50"
           >
-            {checkingOut ? "Starting checkout…" : "Checkout with Square"}
+            {checkingOut ? "Starting checkout…" : UI_COPY.ctas.checkout}
           </button>
           {items.length > 0 ? (
             <button
@@ -171,7 +175,7 @@ export function CartDrawer() {
               onClick={clearCart}
               className="mt-2 inline-flex h-10 w-full items-center justify-center rounded-full border border-black/15 bg-white/70 px-6 text-sm font-semibold text-[#141414] transition hover:bg-white"
             >
-              Clear cart
+              {UI_COPY.ctas.clearCart}
             </button>
           ) : null}
         </div>

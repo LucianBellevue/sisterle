@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { LEGAL_ROUTES } from "@/lib/legal/policies";
 import { fetchStorefrontCatalog } from "@/lib/square/catalog";
 import { getPublicSiteUrl } from "@/lib/site";
 
@@ -14,6 +15,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "daily",
       priority: 1,
     },
+    ...LEGAL_ROUTES.map((route) => ({
+      url: `${siteUrl}${route.href}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.5,
+    })),
   ];
 
   try {

@@ -3,23 +3,33 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/components/cart/CartProvider";
+import { BentoPanel } from "@/components/bento/BentoPanel";
+import { UI_COPY } from "@/lib/copy/ui";
+import { cycleTone, type PanelTone } from "@/lib/bento/tones";
 import { formatMoney } from "@/lib/square/money";
 import type { StorefrontProduct } from "@/lib/square/types";
 
 type ProductCardProps = {
   product: StorefrontProduct;
+  tone?: PanelTone;
+  index?: number;
 };
 
-export function ProductCard({ product }: ProductCardProps) {
+export function ProductCard({ product, tone, index = 0 }: ProductCardProps) {
   const { addProduct, items } = useCart();
   const inCart = items.some((item) => item.variationId === product.variationId);
   const isDepop = product.channel === "depop";
   const href = `/shop/${product.id}`;
+  const panelTone = tone ?? cycleTone(index);
 
   return (
-    <article className="relative rounded-2xl border border-black/10 bg-white/65 p-4 transition hover:bg-white/80">
+    <BentoPanel
+      tone={panelTone}
+      as="article"
+      className="bento-card-lift flex h-full flex-col p-4"
+    >
       <Link href={href} className="block">
-        <div className="relative mb-4 aspect-[4/5] overflow-hidden rounded-xl bg-black/5">
+        <div className="relative mb-4 aspect-[4/5] overflow-hidden rounded-[1.25rem] bg-white/40">
           {product.imageUrl ? (
             <Image
               src={product.imageUrl}
@@ -34,20 +44,20 @@ export function ProductCard({ product }: ProductCardProps) {
             </div>
           )}
           {product.soldOut && !isDepop ? (
-            <span className="absolute left-3 top-3 rounded-full bg-[#141414]/90 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-(--salmon)">
+            <span className="absolute left-3 top-3 rounded-full bg-[#141414] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--salmon)]">
               Sold
             </span>
           ) : null}
           {isDepop ? (
-            <span className="absolute left-3 top-3 rounded-full bg-[#141414]/90 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-(--salmon)">
+            <span className="absolute left-3 top-3 rounded-full bg-[#141414] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--salmon)]">
               Depop
             </span>
           ) : null}
         </div>
 
-        <h3 className="text-base font-semibold text-[#141414]">{product.name}</h3>
+        <h3 className="bento-title text-lg text-[#141414]">{product.name}</h3>
         {product.description ? (
-          <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-[#222]/80">
+          <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-[#222]/80">
             {product.description}
           </p>
         ) : null}
@@ -56,41 +66,41 @@ export function ProductCard({ product }: ProductCardProps) {
         </p>
       </Link>
 
-      <div className="mt-4 flex flex-col gap-2">
+      <div className="mt-auto flex flex-col gap-2 pt-4">
         <Link
           href={href}
-          className="inline-flex h-11 w-full items-center justify-center rounded-full border border-black/15 bg-white/70 px-5 text-sm font-semibold text-[#141414] transition hover:bg-white"
+          className="bento-btn border border-black/15 bg-white/70 text-[#141414] hover:bg-white"
         >
-          View details
+          View details 👀
         </Link>
         {isDepop && product.depopUrl ? (
           <a
             href={product.depopUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex h-11 w-full items-center justify-center rounded-full bg-[#141414] px-5 text-sm font-semibold text-(--salmon) transition hover:bg-black"
+            className="bento-btn bg-[#141414] text-[var(--salmon)] hover:bg-black"
           >
-            View on Depop
+            {UI_COPY.ctas.viewOnDepop}
           </a>
         ) : product.purchasable ? (
           <button
             type="button"
             onClick={() => addProduct(product)}
             disabled={inCart}
-            className="inline-flex h-11 w-full items-center justify-center rounded-full bg-[#141414] px-5 text-sm font-semibold text-(--salmon) transition hover:bg-black disabled:cursor-not-allowed disabled:opacity-60"
+            className="bento-btn bg-[#141414] text-[var(--salmon)] hover:bg-black disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {inCart ? "In cart" : "Add to cart"}
+            {inCart ? UI_COPY.ctas.inCart : UI_COPY.ctas.addToCart}
           </button>
         ) : (
           <button
             type="button"
             disabled
-            className="inline-flex h-11 w-full items-center justify-center rounded-full border border-black/15 bg-white/50 px-5 text-sm font-semibold text-[#666]"
+            className="bento-btn border border-black/15 bg-white/50 text-[#666]"
           >
             Sold out
           </button>
         )}
       </div>
-    </article>
+    </BentoPanel>
   );
 }

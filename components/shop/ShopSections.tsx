@@ -1,4 +1,5 @@
 import { CatalogSection } from "@/components/shop/CatalogSection";
+import { UI_COPY } from "@/lib/copy/ui";
 import type { CatalogFetchResult } from "@/lib/square/types";
 
 type ShopSectionsProps = {
@@ -9,25 +10,21 @@ type ShopSectionsProps = {
 export function ShopSections({ catalog, depopShopUrl }: ShopSectionsProps) {
   const unavailableNote = catalog.available
     ? null
-    : "The live catalog is temporarily unavailable. Check back soon, or browse Depop in the meantime.";
+    : UI_COPY.empty.catalogUnavailable;
 
   return (
     <>
       <CatalogSection
         id="shop"
-        title="Shop Sisterle"
-        subtitle="Pieces you can buy right here. Listed in Square, fulfilled by us."
+        title={UI_COPY.sections.shop}
+        subtitle="Pieces you can buy right here. Listed in Square, fulfilled by us. ✨"
         products={catalog.sisterle}
-        emptyMessage={
-          unavailableNote ??
-          "No Sisterle items are live yet. New drops land here as soon as we list them."
-        }
-        accent="blue"
+        emptyMessage={unavailableNote ?? UI_COPY.empty.sisterle}
       />
       <CatalogSection
         id="depop"
-        title="On Depop"
-        subtitle="Mirrored listings that live on Depop. Tap through to buy there."
+        title={UI_COPY.sections.depop}
+        subtitle="Mirrored listings that live on Depop. Tap through to buy there. 💫"
         products={catalog.depop}
         emptyMessage={
           unavailableNote ?? (
@@ -40,12 +37,11 @@ export function ShopSections({ catalog, depopShopUrl }: ShopSectionsProps) {
                 className="font-semibold underline underline-offset-2"
               >
                 Visit the Depop shop
-              </a>
-              .
+              </a>{" "}
+              ✨
             </>
           )
         }
-        accent="paper"
       />
     </>
   );
