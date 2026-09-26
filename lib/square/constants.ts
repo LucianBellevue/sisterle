@@ -5,4 +5,4 @@ export const DEPOP_URL_ATTRIBUTE_KEY = "depop_url";
 export const DEPOP_URL_ATTRIBUTE_NAME = "Depop URL";
 
 export const DEPOP_URL_ATTRIBUTE_DESCRIPTION =
-  "If set, this item appears in the On Depop section on sisterle.shop and links to Depop instead of selling on-site. Leave blank for Sisterle shop items.";
+  "If set, this item appears in the On Depop section on sisterle.com and links to Depop instead of selling on-site. Leave blank for Sisterle shop items.";

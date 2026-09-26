@@ -39,11 +39,13 @@ export const metadata: Metadata = {
   applicationName: SITE_NAME,
   keywords: [
     "Sisterle",
+    "sisterle.com",
     "thrift shop",
     "vintage clothing",
     "pre-loved fashion",
     "one of one",
     "antique thrift",
+    "vintage thrift store",
     "Depop",
   ],
   authors: [{ name: SITE_NAME }],

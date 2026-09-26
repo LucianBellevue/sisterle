@@ -89,6 +89,9 @@ export function buildProductSchema(product: StorefrontProduct) {
       name: SITE_NAME,
     },
     url: pageUrl,
+    ...(product.channel === "depop" && product.depopUrl
+      ? { sameAs: [product.depopUrl] }
+      : {}),
     offers: {
       "@type": "Offer",
       url: offerUrl,

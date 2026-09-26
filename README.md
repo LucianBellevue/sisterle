@@ -1,6 +1,6 @@
 # Sisterle
 
-Curated thrift & vintage storefront. Sisterle items sell on this site through **Square**. Depop listings are mirrored on the site and link out to Depop.
+Curated thrift & vintage storefront at **[sisterle.com](https://sisterle.com)**. Sisterle items sell on this site through **Square**. Depop listings are mirrored here and link out to [depop.com/sisterle](https://www.depop.com/sisterle/).
 
 **Go live:** see [GO_LIVE.md](GO_LIVE.md) for Square, DNS, Vercel, secrets, smoke test, and Search Console.
 
@@ -23,9 +23,9 @@ cp .env.example .env.local
    - A location ID → `SQUARE_LOCATION_ID`
    - Set `SQUARE_ENVIRONMENT` to `sandbox` or `production`
 
-3. Set `NEXT_PUBLIC_SITE_URL` to your public origin (required for Square checkout return redirects and SEO canonicals).
+3. Set `NEXT_PUBLIC_SITE_URL` to your public origin (production: `https://sisterle.com`). Required for Square checkout return redirects and SEO canonicals.
 
-4. Set `NEXT_PUBLIC_DEPOP_URL` to your **exact Depop shop/profile URL**.
+4. Set `NEXT_PUBLIC_DEPOP_URL` (default: `https://www.depop.com/sisterle/`).
 
 5. Create the seller-visible **Depop URL** catalog attribute (one-time):
 
@@ -74,10 +74,11 @@ npm run setup:square # create Depop URL attribute in Square
 
 ## SEO endpoints
 
-- `https://your-domain/robots.txt`
-- `https://your-domain/sitemap.xml`
-- Product pages: `/shop/[itemId]`
+- `https://sisterle.com/robots.txt`
+- `https://sisterle.com/sitemap.xml` (homepage, trust pages, product URLs)
+- Product pages: `/shop/[itemId]` with unique metadata + JSON-LD
 - Trust pages: `/privacy`, `/terms`, `/shipping`, `/returns`, `/contact`
+- Default social image: `/og-default.jpg`
 
 ## Notes
 

@@ -9,8 +9,10 @@ export function AboutSection() {
           {UI_COPY.sections.about}
         </h2>
         <p className="mt-3 text-sm leading-relaxed text-[#222]/90">
-          Sisterle is a curated thrift and vintage shop with a soft spot for
-          texture, shape, and one-of-one finds.
+          {UI_COPY.about.lead}
+        </p>
+        <p className="mt-3 text-sm leading-relaxed text-[#222]/80">
+          {UI_COPY.about.body}
         </p>
       </BentoPanel>
     </section>

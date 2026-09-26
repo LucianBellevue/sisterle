@@ -44,4 +44,15 @@ export const UI_COPY = {
     support:
       "Antique pieces, thrifted gems, and pre-loved fashion—buy one-of-one vintage on Sisterle or browse what we're also listing on Depop. ✨",
   },
+  about: {
+    lead: "Sisterle is a curated thrift and vintage shop for antique finds, pre-loved fashion, and one-of-one pieces with texture and character.",
+    body: "We select wearable, photographable thrift and small antiques worth keeping—no filler. Expect clear photos, honest condition notes, and quick sell-outs. Ship from our shop with secure Square checkout, or browse mirrored Depop listings.",
+  },
+  info: {
+    bullets: [
+      "Vintage clothing, accessories, and soft antiques",
+      "One-of-one thrift listings with measurements and photos",
+      "Ship to you after Square checkout—or shop mirrored Depop finds",
+    ],
+  },
 } as const;

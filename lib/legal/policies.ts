@@ -22,13 +22,13 @@ export const LEGAL_ROUTES = [
 
 export const privacyPolicy: PolicyDocument = {
   title: "Privacy Policy",
-  description: `How ${SITE_NAME} collects, uses, and protects your information when you shop at sisterle.shop.`,
+  description: `How ${SITE_NAME} collects, uses, and protects your information when you shop at sisterle.com.`,
   lastUpdated: "2026-07-27",
   sections: [
     {
       heading: "Who we are",
       paragraphs: [
-        `${SITE_NAME} ("we", "us") operates sisterle.shop, a curated thrift and vintage shop. You can reach us at ${CONTACT_EMAIL}.`,
+        `${SITE_NAME} ("we", "us") operates sisterle.com, a curated thrift and vintage shop. You can reach us at ${CONTACT_EMAIL}.`,
       ],
     },
     {
@@ -52,7 +52,7 @@ export const privacyPolicy: PolicyDocument = {
       paragraphs: [
         "Square processes payments and may handle tax, shipping, and receipt emails according to their policies.",
         "Google Analytics may be used if you opt in to analytics cookies. Google's privacy policy applies to that data.",
-        "Depop purchases happen on Depop's website and are governed by Depop's policies, not checkout on sisterle.shop.",
+        "Depop purchases happen on Depop's website and are governed by Depop's policies, not checkout on sisterle.com.",
       ],
     },
     {
@@ -87,13 +87,13 @@ export const privacyPolicy: PolicyDocument = {
 
 export const termsOfService: PolicyDocument = {
   title: "Terms of Service",
-  description: `Terms for browsing and purchasing from ${SITE_NAME} at sisterle.shop.`,
+  description: `Terms for browsing and purchasing from ${SITE_NAME} at sisterle.com.`,
   lastUpdated: "2026-07-27",
   sections: [
     {
       heading: "Agreement",
       paragraphs: [
-        `By using sisterle.shop, you agree to these Terms of Service. If you do not agree, please do not use the site.`,
+        `By using sisterle.com, you agree to these Terms of Service. If you do not agree, please do not use the site.`,
       ],
     },
     {
@@ -145,13 +145,13 @@ export const termsOfService: PolicyDocument = {
 
 export const shippingPolicy: PolicyDocument = {
   title: "Shipping Policy",
-  description: `How ${SITE_NAME} ships orders placed on sisterle.shop.`,
+  description: `How ${SITE_NAME} ships orders placed on sisterle.com.`,
   lastUpdated: "2026-07-27",
   sections: [
     {
       heading: "Scope",
       paragraphs: [
-        "This policy applies to orders placed and paid for on sisterle.shop through Square checkout. Depop orders ship according to the listing and Depop's checkout flow.",
+        "This policy applies to orders placed and paid for on sisterle.com through Square checkout. Depop orders ship according to the listing and Depop's checkout flow.",
       ],
     },
     {
@@ -190,7 +190,7 @@ export const shippingPolicy: PolicyDocument = {
 
 export const returnsPolicy: PolicyDocument = {
   title: "Returns & Refunds",
-  description: `Return and refund policy for ${SITE_NAME} orders on sisterle.shop.`,
+  description: `Return and refund policy for ${SITE_NAME} orders on sisterle.com.`,
   lastUpdated: "2026-07-27",
   sections: [
     {

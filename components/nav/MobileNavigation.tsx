@@ -139,7 +139,12 @@ export function MobileNavigation() {
           <button
             type="button"
             onClick={openCart}
-            className="flex min-h-14 flex-col items-center justify-center gap-0.5 rounded-xl px-1 py-2 text-center text-[11px] font-semibold text-[#444]/85 transition active:scale-95"
+            className={[
+              "flex min-h-14 flex-col items-center justify-center gap-0.5 rounded-full px-1 py-2 text-center text-[11px] font-semibold transition active:scale-95",
+              itemCount > 0
+                ? "bg-[var(--panel-yellow)] text-[#141414]"
+                : "text-[#444]/85",
+            ].join(" ")}
             aria-label="Open cart"
           >
             <span className="font-hand text-xs font-semibold tracking-wide">

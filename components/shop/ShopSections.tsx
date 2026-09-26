@@ -13,13 +13,14 @@ export function ShopSections({ catalog, depopShopUrl }: ShopSectionsProps) {
     : UI_COPY.empty.catalogUnavailable;
 
   return (
-    <>
+    <div className="flex flex-col gap-3 sm:gap-4">
       <CatalogSection
         id="shop"
         title={UI_COPY.sections.shop}
         subtitle="Pieces you can buy right here. Listed in Square, fulfilled by us. ✨"
         products={catalog.sisterle}
         emptyMessage={unavailableNote ?? UI_COPY.empty.sisterle}
+        headerTone="yellow"
       />
       <CatalogSection
         id="depop"
@@ -42,7 +43,8 @@ export function ShopSections({ catalog, depopShopUrl }: ShopSectionsProps) {
             </>
           )
         }
+        headerTone="blue"
       />
-    </>
+    </div>
   );
 }

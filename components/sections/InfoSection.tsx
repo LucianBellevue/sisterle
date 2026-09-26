@@ -8,10 +8,11 @@ export function InfoSection() {
         <h2 className="bento-title text-2xl sm:text-3xl">
           {UI_COPY.sections.info}
         </h2>
-        <p className="mt-3 text-sm leading-relaxed text-[#222]/90">
-          Vintage clothing, accessories, soft antiques, and honest one-of-one
-          listings with clear photos.
-        </p>
+        <ul className="mt-4 space-y-2 text-sm leading-relaxed text-[#222]/90">
+          {UI_COPY.info.bullets.map((bullet) => (
+            <li key={bullet}>{bullet}</li>
+          ))}
+        </ul>
       </BentoPanel>
     </section>
   );

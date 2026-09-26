@@ -4,23 +4,26 @@
  */
 export const SITE_NAME = "Sisterle";
 export const SITE_TAGLINE = "Thrift & vintage shop";
+/** Visible homepage H1 — brand + short phrase for SEO without fighting the logo. */
+export const SITE_HEADLINE = "Sisterle thrift & vintage";
 export const SITE_DESCRIPTION =
-  "Sisterle is a curated thrift and vintage storefront for antique pieces, pre-loved fashion, and one-of-one finds. Shop on sisterle.shop or browse mirrored Depop listings.";
+  "Sisterle is a curated thrift and vintage storefront for antique pieces, pre-loved fashion, and one-of-one finds. Shop on sisterle.com or browse mirrored Depop listings.";
 
 export const CONTACT_EMAIL =
-  process.env.SQUARE_SUPPORT_EMAIL?.trim() || "hello@sisterle.shop";
+  process.env.SQUARE_SUPPORT_EMAIL?.trim() || "sales@sisterle.com";
 
 export function getPublicSiteUrl(): string {
   const fromEnv = process.env.NEXT_PUBLIC_SITE_URL?.trim();
   if (fromEnv) return fromEnv.replace(/\/$/, "");
   const vercel = process.env.VERCEL_URL?.trim();
   if (vercel) return `https://${vercel.replace(/\/$/, "")}`;
-  return "https://sisterle.shop";
+  return "https://sisterle.com";
 }
 
 export function getDepopShopUrl(): string {
   return (
-    process.env.NEXT_PUBLIC_DEPOP_URL?.trim() || "https://www.depop.com/"
+    process.env.NEXT_PUBLIC_DEPOP_URL?.trim() ||
+    "https://www.depop.com/sisterle/"
   );
 }
 

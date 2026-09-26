@@ -94,7 +94,7 @@ export async function createSquareCheckout(
       askForShippingAddress: true,
       redirectUrl: `${siteUrl}/checkout/success`,
       merchantSupportEmail:
-        process.env.SQUARE_SUPPORT_EMAIL?.trim() || "hello@sisterle.shop",
+        process.env.SQUARE_SUPPORT_EMAIL?.trim() || "sales@sisterle.com",
     },
   });
 

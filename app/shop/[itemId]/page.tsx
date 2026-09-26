@@ -71,8 +71,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
       <JsonLd data={buildProductSchema(product)} />
       <JsonLd data={buildBreadcrumbSchema(product)} />
 
-      <div className="relative z-10 mx-auto max-w-3xl px-4 py-4 sm:px-10 sm:py-20">
-        <nav aria-label="Breadcrumb" className="mb-8 text-sm text-[#333]/85">
+      <div className="relative z-10 mx-auto max-w-3xl px-3 py-3 sm:px-10 sm:py-20">
+        <nav aria-label="Breadcrumb" className="mb-5 text-sm text-[#333]/85 sm:mb-8">
           <ol className="flex flex-wrap items-center gap-2">
             <li>
               <Link href="/" className="font-semibold hover:underline">
@@ -93,35 +93,35 @@ export default async function ProductPage({ params }: ProductPageProps) {
           </ol>
         </nav>
 
-        <div className="grid gap-8 sm:grid-cols-2 sm:items-start">
+        <div className="grid gap-4 sm:grid-cols-2 sm:items-start sm:gap-8">
           <ProductHeroImage product={product} />
 
-          <div className="rounded-2xl border border-black/15 bg-white/70 p-6 shadow-[0_22px_55px_-24px_rgba(0,0,0,0.35)] backdrop-blur-sm sm:p-8">
-            <p className="font-hand text-lg font-semibold text-[#1a1a1a]/75">
+          <div className="bento-panel bento-panel-cream border border-black/10 p-4 sm:p-8">
+            <p className="font-hand text-base font-semibold text-[#1a1a1a]/75 sm:text-lg">
               {isDepop ? "Listed on Depop 👗" : "Sisterle shop ✨"}
             </p>
-            <h1 className="font-hand mt-3 text-3xl font-semibold leading-tight text-[#141414] sm:text-4xl">
+            <h1 className="font-hand mt-2 text-2xl font-semibold leading-tight text-[#141414] sm:mt-3 sm:text-4xl">
               {product.name}
             </h1>
-            <p className="mt-4 text-xl font-semibold text-[#141414]">
+            <p className="mt-3 text-lg font-semibold text-[#141414] sm:mt-4 sm:text-xl">
               {formatMoney(product.priceCents, product.currency)}
             </p>
             {product.description ? (
-              <p className="mt-5 text-sm leading-relaxed text-[#222]/90">
+              <p className="mt-4 text-sm leading-relaxed text-[#222]/90 sm:mt-5">
                 {product.description}
               </p>
             ) : (
-              <p className="mt-5 text-sm leading-relaxed text-[#222]/90">
+              <p className="mt-4 text-sm leading-relaxed text-[#222]/90 sm:mt-5">
                 A curated thrift and vintage find from {SITE_NAME}. One-of-one
                 piece — condition notes live with the listing photos.
               </p>
             )}
 
-            <div className="mt-8">
+            <div className="mt-6 sm:mt-8">
               <ProductPurchaseActions product={product} />
             </div>
 
-            <p className="mt-6 text-xs leading-relaxed text-[#444]/80">
+            <p className="mt-5 text-xs leading-relaxed text-[#444]/80 sm:mt-6">
               {isDepop
                 ? "This piece is mirrored here for browsing. Checkout happens on Depop."
                 : "Secure checkout is powered by Square. Shipping and tax are calculated at payment."}
@@ -129,10 +129,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
           </div>
         </div>
 
-        <div className="mt-10">
+        <div className="mt-6 sm:mt-10">
           <Link
             href={isDepop ? "/#depop" : "/#shop"}
-            className="text-sm font-semibold text-[#141414] underline underline-offset-2"
+            className="inline-flex min-h-11 items-center text-sm font-semibold text-[#141414] underline underline-offset-2"
           >
             ← Back to {isDepop ? "On Depop" : "Shop Sisterle"}
           </Link>

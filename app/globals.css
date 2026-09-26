@@ -5,15 +5,21 @@
   --salmon-deep: #e38aa8;
   --ink: #1a1a1a;
   --mobile-top: 3.5rem;
-  --mobile-bottom: 4.25rem;
+  --mobile-bottom: 4.5rem;
   --panel-pink: #f7c6d4;
   --panel-blue: #b8d4f0;
   --panel-yellow: #f5e6a3;
   --panel-coral: #e85d4c;
   --panel-cream: #fff8f0;
   --panel-ink: #141414;
-  --radius-bento: 1.75rem;
+  --radius-bento: 1.25rem;
   --radius-pill: 9999px;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --radius-bento: 1.75rem;
+  }
 }
 
 @theme inline {
@@ -95,16 +101,25 @@
 .bento-btn {
   display: inline-flex;
   min-height: 2.75rem;
+  width: 100%;
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-pill);
-  padding: 0.65rem 1.5rem;
+  padding: 0.65rem 1.25rem;
   font-size: 0.875rem;
   font-weight: 600;
+  touch-action: manipulation;
   transition:
     transform 160ms ease,
     background-color 160ms ease,
     color 160ms ease;
+}
+
+@media (min-width: 640px) {
+  .bento-btn {
+    width: auto;
+    padding: 0.65rem 1.5rem;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -118,9 +133,11 @@
       box-shadow 200ms ease;
   }
 
-  .bento-card-lift:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.45);
+  @media (hover: hover) and (pointer: fine) {
+    .bento-card-lift:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.45);
+    }
   }
 
   .bento-enter {

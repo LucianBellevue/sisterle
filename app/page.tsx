@@ -1,9 +1,7 @@
-import { CategoryPills } from "@/components/bento/CategoryPills";
 import { HeroBento } from "@/components/bento/HeroBento";
 import { StoryBento } from "@/components/bento/StoryBento";
 import { SectionScrollSpy } from "@/components/SectionScrollSpy";
 import { ShelfNav } from "@/components/ShelfNav";
-import { ContactSection } from "@/components/sections/ContactSection";
 import { ShopSections } from "@/components/shop/ShopSections";
 import { SiteFooter } from "@/components/SiteFooter";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -44,17 +42,20 @@ export default async function Home() {
         sectionIds={["info", "about", "shop", "depop", "contact"]}
       />
 
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col px-4 pb-10 pt-4 sm:px-8 sm:pb-16 sm:pt-10 lg:px-10">
-        <div className="mb-4 hidden md:block">
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col px-3 pb-8 pt-3 sm:px-8 sm:pb-16 sm:pt-10 lg:px-10">
+        <div className="mb-3 hidden md:block">
           <ShelfNav depopUrl={depopUrl} />
         </div>
 
-        <main className="flex flex-1 flex-col gap-8 sm:gap-10">
+        {/* One continuous bento board — tight gaps so bands read as one layout */}
+        <main className="flex flex-1 flex-col gap-3 sm:gap-4">
           <HeroBento products={allProducts} />
           <ShopSections catalog={catalog} depopShopUrl={depopUrl} />
-          <StoryBento featuredProduct={featured} />
-          <CategoryPills featuredProduct={featured} />
-          <ContactSection depopUrl={depopUrl} email={CONTACT_EMAIL} />
+          <StoryBento
+            featuredProduct={featured}
+            depopUrl={depopUrl}
+            email={CONTACT_EMAIL}
+          />
         </main>
 
         <SiteFooter
