@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Square SDK uses node-fetch; keep it out of the server bundle (avoids "fetch failed").
+  serverExternalPackages: ["square"],
   images: {
     remotePatterns: [
       {

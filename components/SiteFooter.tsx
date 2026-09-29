@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
+import { BrandLogo } from "@/components/BrandLogo";
 import { BentoPanel } from "@/components/bento/BentoPanel";
 import { LEGAL_ROUTES } from "@/lib/legal/policies";
 
@@ -10,8 +10,6 @@ type SiteFooterProps = {
   instagramUrl?: string | null;
 };
 
-const LOGO_SRC = "/sisterle-logo.png";
-
 export function SiteFooter({
   depopUrl,
   email,
@@ -20,25 +18,23 @@ export function SiteFooter({
 }: SiteFooterProps) {
   return (
     <footer className="mt-6 sm:mt-14">
-      <BentoPanel tone="cream" className="p-4 sm:p-6">
+      <BentoPanel tone="cream" starSeed={41} starCount={8} className="p-5 sm:p-6">
         <div className="flex flex-col gap-4 sm:gap-5">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
-              <div className="inline-block rounded-xl border border-black/15 bg-black p-2">
-                <Image
-                  src={LOGO_SRC}
-                  alt="Sisterle logo"
-                  width={160}
-                  height={46}
-                  className="h-auto w-[120px] sm:w-[160px]"
-                />
-              </div>
-              <div className="flex flex-wrap items-center gap-2">
+            <div className="flex flex-col gap-3.5 sm:flex-row sm:items-center sm:gap-5">
+              <Link
+                href="/"
+                className="inline-flex shrink-0 self-start transition hover:opacity-90"
+                aria-label="Sisterle home"
+              >
+                <BrandLogo size="footer" />
+              </Link>
+              <div className="flex min-w-0 flex-wrap items-center gap-2">
                 <a
                   href={depopUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bento-title inline-flex min-h-10 items-center rounded-full bg-[var(--panel-pink)] px-3 py-1.5 text-sm"
+                  className="nav-pill bg-[var(--panel-pink)]"
                 >
                   Depop 👗
                 </a>
@@ -47,14 +43,14 @@ export function SiteFooter({
                     href={instagramUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bento-title inline-flex min-h-10 items-center rounded-full bg-[var(--panel-blue)] px-3 py-1.5 text-sm"
+                    className="nav-pill bg-[var(--panel-blue)]"
                   >
                     Instagram 📸
                   </a>
                 ) : null}
                 <a
                   href={`mailto:${email}`}
-                  className="bento-title inline-flex min-h-10 items-center rounded-full bg-[var(--panel-yellow)] px-3 py-1.5 text-sm"
+                  className="nav-pill bg-[var(--panel-yellow)]"
                 >
                   Email ✉️
                 </a>
@@ -62,7 +58,7 @@ export function SiteFooter({
                   href={uiforgeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bento-title inline-flex min-h-10 items-center rounded-full bg-white/80 px-3 py-1.5 text-sm"
+                  className="nav-pill"
                 >
                   Powered by UiForge
                 </a>

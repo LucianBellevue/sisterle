@@ -8,6 +8,8 @@ export type StorefrontProduct = {
   priceCents: number;
   currency: string;
   imageUrl: string | null;
+  /** All catalog image URLs in Square order (first matches imageUrl). */
+  imageUrls: string[];
   quantity: number;
   trackInventory: boolean;
   soldOut: boolean;

@@ -9,6 +9,18 @@ export const SITE_HEADLINE = "Sisterle thrift & vintage";
 export const SITE_DESCRIPTION =
   "Sisterle is a curated thrift and vintage storefront for antique pieces, pre-loved fashion, and one-of-one finds. Shop on sisterle.com or browse mirrored Depop listings.";
 
+/** Brand + share assets in /public (and mirrored app/ icons for Next metadata). */
+export const SITE_ASSETS = {
+  logo: "/sisterle-logo.png",
+  ogDefault: "/og-default.jpg",
+  favicon: "/favicon.ico",
+  appleTouchIcon: "/apple-touch-icon.png",
+  icon32: "/icon-32.png",
+  icon192: "/icon-192.png",
+  icon512: "/icon-512.png",
+  manifest: "/site.webmanifest",
+} as const;
+
 export const CONTACT_EMAIL =
   process.env.SQUARE_SUPPORT_EMAIL?.trim() || "sales@sisterle.com";
 

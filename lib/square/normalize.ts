@@ -120,8 +120,10 @@ export function normalizeCatalogItem(params: {
     depopRaw && isValidHttpUrl(depopRaw) ? depopRaw : null;
 
   const imageIds = item.itemData?.imageIds ?? [];
-  const imageUrl =
-    imageIds.map((id) => imageUrlById.get(id)).find(Boolean) ?? null;
+  const imageUrls = imageIds
+    .map((id) => imageUrlById.get(id))
+    .filter((url): url is string => Boolean(url));
+  const imageUrl = imageUrls[0] ?? null;
 
   const priceCents = moneyAmountToCents(
     variation.itemVariationData?.priceMoney?.amount,
@@ -154,6 +156,7 @@ export function normalizeCatalogItem(params: {
     priceCents,
     currency,
     imageUrl,
+    imageUrls,
     quantity: trackInventory ? quantity : 1,
     trackInventory,
     soldOut,

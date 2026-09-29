@@ -4,6 +4,7 @@ import { Providers } from "@/components/Providers";
 import { AnalyticsGate } from "@/components/AnalyticsGate";
 import { CookieConsent } from "@/components/CookieConsent";
 import {
+  SITE_ASSETS,
   SITE_DESCRIPTION,
   SITE_NAME,
   SITE_TAGLINE,
@@ -62,9 +63,10 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     images: [
       {
-        url: "/og-default.jpg",
+        url: SITE_ASSETS.ogDefault,
         width: 1200,
         height: 630,
+        type: "image/jpeg",
         alt: `${SITE_NAME} — thrift and vintage shop`,
       },
     ],
@@ -73,7 +75,14 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${SITE_NAME} — ${SITE_TAGLINE}`,
     description: SITE_DESCRIPTION,
-    images: ["/og-default.jpg"],
+    images: [
+      {
+        url: SITE_ASSETS.ogDefault,
+        width: 1200,
+        height: 630,
+        alt: `${SITE_NAME} — thrift and vintage shop`,
+      },
+    ],
   },
   robots: {
     index: true,
@@ -86,10 +95,24 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
+  // File conventions also ship app/favicon.ico, app/icon.png, app/apple-icon.png.
   icons: {
-    icon: "/sisterle-logo.png",
-    apple: "/sisterle-logo.png",
+    icon: [
+      { url: SITE_ASSETS.favicon, sizes: "any" },
+      { url: SITE_ASSETS.icon32, sizes: "32x32", type: "image/png" },
+      { url: SITE_ASSETS.icon192, sizes: "192x192", type: "image/png" },
+      { url: SITE_ASSETS.icon512, sizes: "512x512", type: "image/png" },
+    ],
+    apple: [
+      {
+        url: SITE_ASSETS.appleTouchIcon,
+        sizes: "180x180",
+        type: "image/png",
+      },
+    ],
+    shortcut: [SITE_ASSETS.favicon],
   },
+  manifest: SITE_ASSETS.manifest,
 };
 
 export const viewport = {

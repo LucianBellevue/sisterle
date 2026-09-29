@@ -78,7 +78,31 @@ describe("normalizeCatalogItem", () => {
     assert.equal(product.channel, "sisterle");
     assert.equal(product.purchasable, true);
     assert.equal(product.imageUrl, "https://example.com/a.jpg");
+    assert.deepEqual(product.imageUrls, ["https://example.com/a.jpg"]);
     assert.equal(product.priceCents, 4500);
+  });
+
+  it("collects all image URLs in catalog order", () => {
+    const product = normalizeCatalogItem({
+      item: {
+        ...makeItem(),
+        itemData: {
+          ...makeItem().itemData!,
+          imageIds: ["IMG_1", "IMG_2", "IMG_3"],
+        },
+      },
+      imageUrlById: new Map([
+        ["IMG_1", "https://example.com/1.jpg"],
+        ["IMG_2", "https://example.com/2.jpg"],
+      ]),
+      quantityByVariationId: new Map([["VAR_1", 1]]),
+      locationId: "LOC_1",
+    });
+    assert.ok(product);
+    assert.deepEqual(product.imageUrls, [
+      "https://example.com/1.jpg",
+      "https://example.com/2.jpg",
+    ]);
   });
 
   it("routes valid Depop URLs to the depop channel", () => {

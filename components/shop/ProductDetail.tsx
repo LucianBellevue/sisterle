@@ -1,8 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
+import { useCallback, useState } from "react";
 import { useCart } from "@/components/cart/CartProvider";
+import { ProductImageGallery } from "@/components/shop/ProductImageGallery";
 import { UI_COPY } from "@/lib/copy/ui";
 import { formatMoney } from "@/lib/square/money";
 import type { StorefrontProduct } from "@/lib/square/types";
@@ -71,22 +72,36 @@ type ProductHeroImageProps = {
 };
 
 export function ProductHeroImage({ product }: ProductHeroImageProps) {
+  const urls =
+    product.imageUrls.length > 0
+      ? product.imageUrls
+      : product.imageUrl
+        ? [product.imageUrl]
+        : [];
+  const [live, setLive] = useState(false);
+  const engage = useCallback(() => {
+    if (urls.length > 1) setLive(true);
+  }, [urls.length]);
+  const disengage = useCallback(() => setLive(false), []);
+
   return (
-    <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-black/10 bg-black/5">
-      {product.imageUrl ? (
-        <Image
-          src={product.imageUrl}
-          alt={product.name}
-          fill
-          priority
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, 480px"
-        />
-      ) : (
-        <div className="flex h-full items-center justify-center text-xs uppercase tracking-[0.18em] text-[#666]">
-          Photo coming soon
-        </div>
-      )}
+    <div
+      className="rounded-2xl border border-black/10 bg-black/5"
+      onMouseEnter={engage}
+      onMouseLeave={disengage}
+      onFocus={engage}
+      onBlur={disengage}
+      onTouchStart={engage}
+      onTouchEnd={() => window.setTimeout(disengage, 3200)}
+    >
+      <ProductImageGallery
+        urls={urls}
+        alt={product.name}
+        sizes="(max-width: 768px) 100vw, 480px"
+        priority
+        live={live}
+        className="aspect-[4/5] w-full rounded-2xl"
+      />
     </div>
   );
 }

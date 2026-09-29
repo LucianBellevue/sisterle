@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
+import { BrandLogo } from "@/components/BrandLogo";
 import { BentoPanel } from "@/components/bento/BentoPanel";
 import { UI_COPY } from "@/lib/copy/ui";
 import { SITE_HEADLINE, SITE_NAME, SITE_TAGLINE } from "@/lib/site";
 import type { StorefrontProduct } from "@/lib/square/types";
 
-const LOGO_SRC = "/sisterle-logo.png";
 const MOSAIC_PLACEHOLDERS = ["✨", "👗", "🛍️", "💌", "🪡", "💖"];
 
 type MosaicCell = {
@@ -43,30 +43,23 @@ export function HeroBento({ products }: HeroBentoProps) {
     <section aria-label="Hero" className="grid gap-3 md:grid-cols-2 md:gap-4">
       <BentoPanel
         tone="pink"
-        className="bento-enter flex flex-col justify-between p-4 sm:min-h-[300px] sm:p-6 md:min-h-[340px] md:p-8"
+        starSeed={2}
+        starCount={7}
+        className="bento-enter flex flex-col justify-between p-5 sm:min-h-[300px] sm:p-7 md:min-h-[340px] md:p-8"
       >
         <div>
-          <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#141414]/70 sm:mb-3 sm:text-xs sm:tracking-[0.18em]">
+          <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#141414]/65 sm:text-xs sm:tracking-[0.18em]">
             {SITE_TAGLINE} ✨
           </p>
-          <div className="mb-3 inline-block rounded-xl border border-black/15 bg-black p-2 sm:rounded-2xl sm:p-2.5">
-            <Image
-              src={LOGO_SRC}
-              alt=""
-              width={220}
-              height={64}
-              priority
-              className="h-auto w-[min(168px,58vw)] sm:w-[min(200px,70vw)]"
-            />
+          <div className="mb-4">
+            <BrandLogo size="hero" priority decorative />
           </div>
-          <h1 className="bento-title text-[1.65rem] leading-tight text-[#141414] sm:text-3xl">
+          <h1 className="bento-title text-[1.65rem] text-[#141414] sm:text-3xl">
             {SITE_HEADLINE}
           </h1>
-          <p className="mt-3 max-w-md text-sm leading-relaxed text-[#222]/90 sm:text-base">
-            {UI_COPY.hero.support}
-          </p>
+          <p className="bento-copy max-w-md">{UI_COPY.hero.support}</p>
         </div>
-        <div className="mt-5 sm:mt-8">
+        <div className="bento-actions">
           <Link
             href="/#shop"
             className="bento-btn bg-[var(--panel-coral)] text-[#fff8f0] hover:bg-[#d44c3c]"
@@ -79,17 +72,19 @@ export function HeroBento({ products }: HeroBentoProps) {
       <BentoPanel
         tone="cream"
         bordered
-        className="bento-enter bento-enter-delay-1 flex flex-col p-3 sm:p-5"
+        starSeed={5}
+        starCount={6}
+        className="bento-enter bento-enter-delay-1 flex flex-col p-5 sm:p-6"
       >
-        <p className="bento-title mb-2 px-1 text-base sm:mb-3 sm:text-xl">
+        <p className="bento-title mb-3 text-lg sm:mb-4 sm:text-xl">
           Fresh finds 👀
         </p>
-        <div className="grid grid-cols-3 gap-1.5 sm:gap-3">
+        <div className="grid grid-cols-3 gap-2 sm:gap-3">
           {cells.map((cell, index) => (
             <Link
               key={cell.key}
               href={cell.href}
-              className="relative aspect-square overflow-hidden rounded-xl bg-white/80 transition active:opacity-80 sm:rounded-2xl"
+              className="relative aspect-square overflow-hidden rounded-xl bg-[#f3f3f3] transition active:opacity-80 sm:rounded-2xl"
             >
               {cell.imageUrl ? (
                 <Image

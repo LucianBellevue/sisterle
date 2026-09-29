@@ -1,5 +1,6 @@
 import {
   CONTACT_EMAIL,
+  SITE_ASSETS,
   SITE_DESCRIPTION,
   SITE_NAME,
   getPublicSiteUrl,
@@ -18,8 +19,8 @@ export function buildOrganizationSchema() {
     url: siteUrl,
     email: CONTACT_EMAIL,
     description: SITE_DESCRIPTION,
-    logo: `${siteUrl}/sisterle-logo.png`,
-    image: `${siteUrl}/og-default.jpg`,
+    logo: `${siteUrl}${SITE_ASSETS.logo}`,
+    image: `${siteUrl}${SITE_ASSETS.ogDefault}`,
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "customer service",
@@ -83,7 +84,12 @@ export function buildProductSchema(product: StorefrontProduct) {
       product.description ||
       `${product.name} — curated thrift and vintage from ${SITE_NAME}.`,
     sku: product.variationId,
-    image: product.imageUrl ? [product.imageUrl] : [`${siteUrl}/og-default.jpg`],
+    image:
+      product.imageUrls.length > 0
+        ? product.imageUrls
+        : product.imageUrl
+          ? [product.imageUrl]
+          : [`${siteUrl}${SITE_ASSETS.ogDefault}`],
     brand: {
       "@type": "Brand",
       name: SITE_NAME,

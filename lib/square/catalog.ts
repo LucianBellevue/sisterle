@@ -122,7 +122,14 @@ export async function fetchStorefrontCatalog(): Promise<CatalogFetchResult> {
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "Failed to load Square catalog.";
-    console.error("[square/catalog]", message);
+    const cause =
+      error instanceof Error && error.cause instanceof Error
+        ? error.cause.message
+        : null;
+    console.error(
+      "[square/catalog]",
+      cause ? `${message} (${cause})` : message,
+    );
     return {
       sisterle: [],
       depop: [],

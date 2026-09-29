@@ -1,16 +1,15 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+import { BrandLogo } from "@/components/BrandLogo";
 import { useCart } from "@/components/cart/CartProvider";
+import { BentoCornerStars } from "@/components/stars/BentoCornerStars";
 import { MENU_LINKS, MOBILE_TABS } from "@/lib/nav/config";
 import { getDepopShopUrl, SITE_NAME } from "@/lib/site";
 import { useAppSelector } from "@/store/hooks";
 import type { SectionId } from "@/store/uiSlice";
-
-const LOGO_SRC = "/sisterle-logo.png";
 
 function isHomePath(pathname: string) {
   return pathname === "/";
@@ -60,27 +59,15 @@ export function MobileNavigation() {
 
   return (
     <>
-      {/* Fixed top bar — mobile only */}
-      <header className="fixed inset-x-0 top-0 z-40 border-b border-black/10 bg-[var(--panel-cream)]/95 backdrop-blur-md md:hidden mobile-safe-top">
-        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-3 px-4">
+      <header className="fixed inset-x-0 top-0 z-40 md:hidden mobile-safe-top">
+        <div className="nav-glass nav-stars-host mx-2 mt-2 flex h-14 items-center justify-between gap-3 overflow-visible rounded-2xl px-3">
+          <BentoCornerStars seed={71} count={4} idPrefix="mnav-top" />
           <Link
             href="/"
-            className="flex min-w-0 items-center gap-2"
+            className="flex min-w-0 items-center"
             aria-label={`${SITE_NAME} home`}
           >
-            <span className="inline-flex shrink-0 rounded-lg border border-black/15 bg-black p-1">
-              <Image
-                src={LOGO_SRC}
-                alt=""
-                width={96}
-                height={28}
-                className="h-7 w-auto"
-                priority
-              />
-            </span>
-            <span className="font-hand truncate text-base font-semibold tracking-wide text-[#141414]">
-              {SITE_NAME}
-            </span>
+            <BrandLogo size="nav" priority />
           </Link>
 
           <div className="flex shrink-0 items-center gap-2">
@@ -88,7 +75,7 @@ export function MobileNavigation() {
               type="button"
               onClick={openCart}
               aria-label={`Open cart${itemCount > 0 ? `, ${itemCount} items` : ""}`}
-              className="relative inline-flex h-11 min-w-11 items-center justify-center rounded-full border border-black/15 bg-white px-3 text-sm font-semibold text-[#141414] transition active:scale-95"
+              className="nav-pill relative !min-h-11 px-3"
             >
               Cart
               {itemCount > 0 ? (
@@ -102,7 +89,7 @@ export function MobileNavigation() {
               onClick={openMenu}
               aria-label="Open menu"
               aria-expanded={menuOpen}
-              className="inline-flex h-11 min-w-11 items-center justify-center rounded-full bg-[var(--panel-coral)] px-3 text-sm font-semibold text-[#fff8f0] transition active:scale-95"
+              className="nav-pill nav-pill-active !min-h-11 px-3"
             >
               Menu
             </button>
@@ -110,24 +97,22 @@ export function MobileNavigation() {
         </div>
       </header>
 
-      {/* Bottom tab bar — mobile only */}
       <nav
         aria-label="Primary mobile navigation"
-        className="fixed inset-x-0 bottom-0 z-40 border-t border-black/10 bg-[var(--panel-cream)]/95 backdrop-blur-md md:hidden mobile-safe-bottom"
+        className="fixed inset-x-0 bottom-0 z-40 md:hidden mobile-safe-bottom"
       >
-        <div className="mx-auto grid max-w-6xl grid-cols-4 gap-1 px-2 pt-1">
+        <div className="nav-glass nav-stars-host relative mx-2 mb-2 overflow-visible rounded-2xl px-1.5 py-1.5">
+          <BentoCornerStars seed={77} count={4} idPrefix="mnav-bot" />
+          <div className="relative z-[2] grid grid-cols-4 gap-1">
           {MOBILE_TABS.map((tab) => {
             const active = isTabActive(tab.id, pathname, activeSection);
             return (
               <Link
                 key={tab.id}
                 href={tab.href}
-                className={[
-                  "flex min-h-14 flex-col items-center justify-center gap-0.5 rounded-full px-1 py-2 text-center text-[11px] font-semibold transition active:scale-95",
-                  active
-                    ? "bg-[var(--panel-pink)] text-[#141414]"
-                    : "text-[#444]/85",
-                ].join(" ")}
+                className={["nav-tab", active ? "nav-tab-active" : ""]
+                  .filter(Boolean)
+                  .join(" ")}
                 aria-current={active ? "page" : undefined}
               >
                 <span className="font-hand text-xs font-semibold tracking-wide">
@@ -140,43 +125,41 @@ export function MobileNavigation() {
             type="button"
             onClick={openCart}
             className={[
-              "flex min-h-14 flex-col items-center justify-center gap-0.5 rounded-full px-1 py-2 text-center text-[11px] font-semibold transition active:scale-95",
-              itemCount > 0
-                ? "bg-[var(--panel-yellow)] text-[#141414]"
-                : "text-[#444]/85",
-            ].join(" ")}
+              "nav-tab",
+              itemCount > 0 ? "nav-tab-active" : "",
+            ]
+              .filter(Boolean)
+              .join(" ")}
             aria-label="Open cart"
           >
             <span className="font-hand text-xs font-semibold tracking-wide">
               Cart{itemCount > 0 ? ` (${itemCount})` : ""}
             </span>
           </button>
+          </div>
         </div>
       </nav>
 
-      {/* Full-screen menu sheet */}
       {menuOpen ? (
         <div className="fixed inset-0 z-50 md:hidden">
           <button
             type="button"
             aria-label="Close menu"
-            className="absolute inset-0 bg-black/45"
+            className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"
             onClick={closeMenu}
           />
           <aside
             role="dialog"
             aria-modal="true"
             aria-label="Site menu"
-            className="absolute inset-y-0 right-0 flex w-[min(100%,20rem)] flex-col border-l border-black/15 bg-[var(--panel-cream)] shadow-[-18px_0_50px_-28px_rgba(0,0,0,0.45)] mobile-safe-top mobile-safe-bottom"
+            className="nav-glass absolute inset-y-2 right-2 flex w-[min(100%,19.5rem)] flex-col rounded-3xl mobile-safe-top mobile-safe-bottom"
           >
-            <div className="flex items-center justify-between border-b border-black/10 px-4 py-4">
-              <p className="font-hand text-lg font-semibold text-[#1a1a1a]/80">
-                Menu ✨
-              </p>
+            <div className="flex items-center justify-between border-b border-black/8 px-4 py-4">
+              <BrandLogo size="nav" />
               <button
                 type="button"
                 onClick={closeMenu}
-                className="inline-flex h-11 min-w-11 items-center justify-center rounded-full border border-black/15 bg-white/80 px-4 text-sm font-semibold"
+                className="nav-pill !min-h-11"
               >
                 Close
               </button>
@@ -186,13 +169,13 @@ export function MobileNavigation() {
               <p className="px-2 pb-2 text-[10px] font-bold uppercase tracking-[0.18em] text-[#666]">
                 Browse
               </p>
-              <ul className="space-y-1">
+              <ul className="space-y-1.5">
                 {MENU_LINKS.map((link) => (
                   <li key={link.id}>
                     <Link
                       href={link.href}
                       onClick={closeMenu}
-                      className="flex min-h-11 items-center rounded-xl px-3 text-sm font-semibold text-[#141414] transition hover:bg-white/80 active:bg-white"
+                      className="nav-pill !min-h-11 w-full justify-start px-3"
                     >
                       {link.label}
                     </Link>
@@ -208,18 +191,18 @@ export function MobileNavigation() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={closeMenu}
-                className="flex min-h-11 items-center rounded-xl px-3 text-sm font-semibold text-[#141414] transition hover:bg-white/80"
+                className="nav-pill !min-h-11 w-full justify-start px-3"
               >
                 Depop shop ↗ 🛍️
               </a>
             </div>
 
             {!onHome ? (
-              <div className="border-t border-black/10 p-3">
+              <div className="border-t border-black/8 p-3">
                 <Link
                   href="/"
                   onClick={closeMenu}
-                  className="inline-flex h-11 w-full items-center justify-center rounded-full bg-[#141414] text-sm font-semibold text-(--salmon)"
+                  className="bento-btn w-full bg-[#141414] text-(--salmon) hover:bg-black"
                 >
                   Back to home
                 </Link>
